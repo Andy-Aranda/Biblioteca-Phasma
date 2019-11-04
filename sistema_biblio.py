@@ -15,5 +15,6 @@ class SistemaBiblio():
 	def add_Usuario(self, usuario):
 		self.__usuarios.append(usuario)
 
-	def solicitar_prestamo(self, id):
-		pass
+	def eliminar_prestamo(self, prestamo):
+		self.__prestamos.remove(prestamo)
+		return
