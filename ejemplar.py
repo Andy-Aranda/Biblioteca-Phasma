@@ -12,17 +12,17 @@ class Ejemplar(Libro):
 
 
 	def get_id(self):
-		return str(self.__id_ejemplar)
+		return self.__id_ejemplar
 
-	def get_disponibles(self):
-		return self.__disponibles
+	def get_disponibilidad(self):
+		return self.__disponible
+
+	def set_disponibilidad(booleano):
+		self.__disponible = booleano
+		return booleano
 
 	#def get_total():
-		#return self.__year
-
-
-	#def solicitar_prestamo():
-		#returnself.__solicitar_prestamo
+		#return self.__total
 
 	def __str__(self):
 		return "Titulo: {}, Autor: {}, Editorial: {}, Año: {}, id: {}.{}".format( self.get_titulo(), self.get_autor(), self.get_editorial(), self.get_year(), self.get_id_libro(), self.get_id())
