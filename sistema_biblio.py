@@ -8,13 +8,38 @@ class SistemaBiblio():
 		self.__usuarios = []
 		self.__prestamos = []
 
+
 	def add_Libros(self, libro):
 		self.__catalogo.append(libro)
 		return True
 
 	def add_Usuario(self, usuario):
 		self.__usuarios.append(usuario)
-
-	def eliminar_prestamo(self, prestamo):
+		return True
+		
+	
+	def agregar_prestamo(self, prestamo):
+		self.__prestamos.append(prestamo)
+		return True
+		
+	
+	
+	def del_libro(self, prestamo):
 		self.__prestamos.remove(prestamo)
-		return
+		multa = prestamo.terminar_prestamo()
+		return multa
+	
+	def get_prestamo (self, id_user):
+		if id_user == "":
+			return self.__prestamos
+		else:
+			prestamos_user = []
+			for prestamos in self.__prestamos:
+				if prestamos.get_usuario == id_user:
+			
+			
+					prestamos_user.append(prestamos)
+				
+				
+	
+			
