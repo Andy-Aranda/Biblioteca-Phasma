@@ -17,7 +17,9 @@ class Usuario():
 		return self.__libros_en_prestamo
 
 	def add_libros_en_prestamo(self):
-		return self.__libros_en_prestamo += 1
+		self.__libros_en_prestamo += 1
+		return self.__libros_en_prestamo
 
 	def dec__libros_en_prestamo(self):
-		return self.__libros_en_prestamo -= 1
+		self.__libros_en_prestamo -= 1
+		return self.__libros_en_prestamo
