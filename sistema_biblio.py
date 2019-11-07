@@ -52,16 +52,15 @@ class SistemaBiblio():
 	def get_prestamos(self):
 		return self.__prestamos
 
-	def buscar_en_catalogo(self, titulo = ""):
+	def buscar_en_catalogo(self, titulo):
 		texto = ""
-		if titulo== "":
-			nombre = ""
+		nombre = ""
+		if titulo == "":
 			for libros in self.__catalogo:
 				if libros.get_titulo() != nombre :
 					texto = texto + "\n{} ({}/{})".format( str(libros), (len(self.get_ejemplares_disponibles(libros.get_titulo()))), libros.get_total())
 					nombre = libros.get_titulo()
 		else:
-			nombre = titulo
 			for libros in self.__catalogo:
 				if libros.get_titulo() != nombre :
 					texto = texto + "\n{} ({}/{})".format( str(libros), (len(self.get_ejemplares_disponibles(libros.get_titulo()))), libros.get_total())

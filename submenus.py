@@ -3,7 +3,7 @@ import prestamo as p
 import sistema_biblio as sb
 import usuario as u
 
-def crearLibros(catalogo):
+def crearLibros(sistema):
     print("\tAgregar libros al catálogo: ")
     aumentar = True
     reiniciar = True
@@ -15,7 +15,7 @@ def crearLibros(catalogo):
 
     ejemplares = int(input("Ingrese numero de ejemplares: "))
     miLibro = e.Ejemplar(titulo, autor, editorial, year, aumentar, ejemplares, reiniciar)
-    catalogo.add_Libros(miLibro)
+    sistema.add_Libros(miLibro)
     #print(miLibro)
     ejemplares = ejemplares - 1
     if ejemplares >= 1: #si hay más ejemplares entonces
@@ -23,44 +23,68 @@ def crearLibros(catalogo):
         reiniciar = False #Reeiniciar contador de Ejemplar
         while ejemplares > 0: #crear el resto de los ejemplares
             miLibro = e.Ejemplar(titulo, autor, editorial, year, aumentar, ejemplares, reiniciar)
-            catalogo.add_Libros(miLibro)
+            sistema.add_Libros(miLibro)
             #print(miLibro)
             ejemplares = ejemplares - 1
+        print("Se han agregado con exito los libros: \n{}".format( sistema.buscar_en_catalogo( miLibro.get_titulo() ) ) )
+    else:
+        print("Se ha agregado con exito el libro: \n{}".format( sistema.buscar_en_catalogo( miLibro.get_titulo() ) ) )
+    return True
 
-def crearUsuario(usuarios):
-    print("\Agregar un nuevo usuario: ")
+def crearUsuario(sistema):
+    print("\nAgregar un nuevo usuario: ")
     nombre = input("Ingrese su nombre: ")
     user = u.Usuario(nombre)
-    sb.add_Usuario(user)
-    print("¡Nuevo usuario agregado con exito!")
+    sistema.add_Usuario(user)
+    print("¡{} se ha agregado con exito! Su id es {}".format(user.get_nombre(), user.get_id() ))
+    return True
 
-def verCatalogo(catalogo):
+def verCatalogo(sistema):
     print("\tEl Catalogo se muestra a continuación: ")
-    print(catalogo.buscar_en_catalogo())
+    print(sistema.buscar_en_catalogo())
 
-def buscarEnCatalogo(catalogo):
+def buscarEnCatalogo(sistema):
     titulo = input("Ingrese el titulo que desea buscar: ")
     print("\tSu busqueda coincide con: ")
-    print(catalogo.buscar_en_catalogo(titulo))
+    print(sistema.buscar_en_catalogo(titulo))
 
-def solicitarPrestamo(catalogo, usuario):
-    id = input("Ingrese el id del libro que desea solicitar: ")
-    ejemplar = obtenerEjemplarPorID(catalogo, id)
-    if ejemplar.get_disponibilidad():
-        tipo_prestamo = escogerTipoPrestamo()
-        prestamo = p.Prestamo(tipo_prestamo, usuario, ejemplar)
-        catalogo.agregar_prestamo(prestamo)
-        print("\n" + str(prestamo))
+def solicitarPrestamo(sistema):
+    id_usuario = int(input("Ingrese su id de usuario: "))
+    user = obtenerUsuarioPorID(sistema, id_usuario)
+
+    if user == "":
+        print("El usuario con id {} no existe".format(id_usuario))
+
+    elif user.get_libros_en_prestamo() < 5:
+        id_libro = float(input("Ingrese el id del libro que desea solicitar: "))
+        ejemplar = obtenerEjemplarPorID(sistema, id_libro)
+
+        if ejemplar.get_disponibilidad():
+            tipo_prestamo = escogerTipoPrestamo()
+            prestamo = p.Prestamo(tipo_prestamo, user, ejemplar)
+            sistema.agregar_prestamo(prestamo)
+            print("\n" + str(prestamo))
+        else:
+            print("Lo sentimos es ejemplar no está disponble")
     else:
-        print("Lo sentimos es ejemplar no está disponble")
+        print("Lo sentimos, ha excedido su maximo de prestamos.")
 
-def obtenerEjemplarPorID(catalogo, id):
+    return True
+
+def obtenerEjemplarPorID(sistema, id_libro):
     ejemplar = ""
-    for libros in catalogo.get_catalogo():
+    for libros in sistema.get_catalogo():
         x = "{}.{}".format(libros.get_id_libro(), libros.get_id())
-        if id == x:
+        if str(id_libro) == x:
             ejemplar = libros
     return ejemplar
+
+def obtenerUsuarioPorID(sistema, id_usuario):
+    user = ""
+    for usuarios in sistema.get_usuarios():
+        if id_usuario == usuarios.get_id():
+            user = usuarios
+    return user
 
 
 def escogerTipoPrestamo():
