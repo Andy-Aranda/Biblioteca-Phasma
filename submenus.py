@@ -16,7 +16,14 @@ def crearLibros(sistema):
     editorial = input("Ingrese editorial: ")
     year = input("Ingrese año: ")
 
-    ejemplares = int(input("Ingrese numero de ejemplares: "))
+    error = True
+    while error:
+        try:
+            ejemplares = int(input("Ingrese numero de ejemplares: "))
+        except ValueError as excepcion:
+            print("\n\t Escriba un numero valido de ejemplares: " + excepcion)
+        else:
+            error = False
     miLibro = e.Ejemplar(titulo, autor, editorial, year, aumentar, ejemplares, reiniciar)
     sistema.add_Libros(miLibro)
     #print(miLibro)
@@ -44,7 +51,7 @@ def crearUsuario(sistema):
 
 def verCatalogo(sistema):
     print("\tEl Catalogo se muestra a continuacion: ")
-    #print(sistema.buscar_en_catalogo(""))
+    print(sistema.buscar_en_catalogo(""))
     return True
 
 def buscarEnCatalogo(sistema):
@@ -75,7 +82,7 @@ def solicitarPrestamo(sistema):
             tipo_prestamo = escogerTipoPrestamo()
             prestamo = p.Prestamo(tipo_prestamo, user, ejemplar)
             sistema.agregar_prestamo(prestamo)
-            print("\n" + str(prestamo))
+            print("\nInformacion de su prestamo:\n" + str(prestamo))
         else:
             print("Lo sentimos es ejemplar no está disponble")
     else:
@@ -100,7 +107,17 @@ def obtenerUsuarioPorID(sistema, id_usuario):
 
 
 def escogerTipoPrestamo():
-    tipo_prestamo = int(input("Tipo de prestamo: \n 1. Prestamo Regular: dos semanas\n 2. Prestamo Rapido: dos dias\nEscoja el numero del tipo de prestamo que desea: "))
+    error = True
+    while error:
+        try:
+            tipo_prestamo = int(input("Tipo de prestamo: \n 1. Prestamo Regular: dos semanas\n 2. Prestamo Rapido: dos dias\nEscoja el numero del tipo de prestamo que desea: "))
+        except ValueError as excepcion:
+            print("\n\t ERROR: Favor de seleccionar unicamente un numero de las opciones")
+        else:
+            if tipo_prestamo >= 3:
+                print("\n\t ERROR: Favor de seleccionar unicamente un numero de las opciones\n")
+            else:
+                error = False
     return tipo_prestamo
 
 
@@ -111,7 +128,7 @@ def cargarAlSistema(sistema):
         f = open(nombre_archivo, "rb")
         x = load(f)
         f.close()
-        print(sistema)
+        #print(sistema)
         print("Se ha cargado exitosamente.")
     else:
         print("El archivo {} no existe.".format(nombre_archivo))

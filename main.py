@@ -10,15 +10,20 @@ def main():
     opcion = 0
     submenus = [sm.crearUsuario, sm.crearLibros, sm.solicitarPrestamo, sm.verCatalogo, sm.buscarEnCatalogo, sm.cargarAlSistema, sm.guardarSistema]
     while opcion < 7:
-        opcion = MenuPrincipal()
-        terminar = False
-        if opcion < 5:
-            while terminar == False:
-                terminar = submenus[opcion](biblio)
-        elif opcion == 5 or opcion == 6:
-            biblio = submenus[opcion](biblio)
+        try:
+            opcion = MenuPrincipal()
+            terminar = False
+        except ValueError as excepcion:
+            print("\n\t ERROR: Favor de seleccionar unicamente un numero")
         else:
-            opcion = 7
-            print("Hasta luego :)")
+            if opcion < 5:
+                while terminar == False:
+                    terminar = submenus[opcion](biblio)
+            elif opcion == 5 or opcion == 6:
+                biblio = submenus[opcion](biblio)
+            else:
+                opcion = 7
+                print("Hasta luego :)")
 
-main()
+if __name__ == '__main__':
+    main()
