@@ -43,8 +43,8 @@ def crearUsuario(sistema):
     return True
 
 def verCatalogo(sistema):
-    print("\tEl Catalogo se muestra a continuación: ")
-    print(sistema.buscar_en_catalogo(""))
+    print("\tEl Catalogo se muestra a continuacion: ")
+    #print(sistema.buscar_en_catalogo(""))
     return True
 
 def buscarEnCatalogo(sistema):
@@ -105,16 +105,17 @@ def escogerTipoPrestamo():
 
 
 def cargarAlSistema(sistema):
+    x = sistema
     nombre_archivo = input("\nIngrese el nombre del archivo que desea cargar: ")
     if path.exists(nombre_archivo):
         f = open(nombre_archivo, "rb")
-        sistema = load(f)
+        x = load(f)
         f.close()
         print(sistema)
         print("Se ha cargado exitosamente.")
     else:
         print("El archivo {} no existe.".format(nombre_archivo))
-    return sistema
+    return x
 
 def guardarSistema(sistema):
     nombre_archivo = input("\nIngrese el nombre del archivo donde desea guardar: ")

@@ -54,12 +54,12 @@ class SistemaBiblio():
 				lista.append(libros)
 		return lista
 
-	def buscar_en_catalogo(self, titulo=""):
+	def buscar_en_catalogo(self, titulo):
 		texto = ""
 		nombre = ""
 		if titulo == "":
 			for libros in self.__catalogo:
-				if libros.get_titulo() != nombre :
+				if libros.get_titulo() != nombre:
 					texto = texto + "\n{} ({}/{})".format( str(libros), (len(self.get_ejemplares_disponibles(libros.get_titulo()))), libros.get_total())
 					nombre = libros.get_titulo()
 		else:

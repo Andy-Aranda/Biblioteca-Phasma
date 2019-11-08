@@ -6,23 +6,19 @@ def MenuPrincipal():
     return opcion - 1
 
 def main():
-    sistema = sb.SistemaBiblio()
+    biblio = sb.SistemaBiblio()
     opcion = 0
     submenus = [sm.crearUsuario, sm.crearLibros, sm.solicitarPrestamo, sm.verCatalogo, sm.buscarEnCatalogo, sm.cargarAlSistema, sm.guardarSistema]
-
-    while opcion < 9:
-        print(sistema)
+    while opcion < 7:
         opcion = MenuPrincipal()
         terminar = False
-        if opcion < 7:
+        if opcion < 5:
             while terminar == False:
-                terminar = submenus[opcion](sistema)
-
-        elif opcion == 7 or opcion == 8:
-            sistema = submenus[opcion](sistema)
-
+                terminar = submenus[opcion](biblio)
+        elif opcion == 5 or opcion == 6:
+            biblio = submenus[opcion](biblio)
         else:
-            opcion = 9
+            opcion = 7
             print("Hasta luego :)")
 
 main()
