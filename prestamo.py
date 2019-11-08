@@ -2,9 +2,9 @@ from enum import Enum
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
-"""
-Clase Prestamo, crea objetos de tipo Prestamo cuyos atributos
-son el tipo de prestamo (se elige mediante enumeracion), la fecha de 
+
+"""Clase Prestamo, crea objetos de tipo Prestamo cuyos atributos
+son el tipo de prestamo (se elige mediante enumeracion), la fecha de
 prestamo, el usuario a quien se le presta, el numero de ejemplar que
 se presta.
 """
@@ -23,7 +23,7 @@ class Prestamo():
 		self.__usuario = usuario #recibe un objeto usuario??
 		self.__usuario.add_libros_en_prestamo()
 
-		self.__ejemplar = ejemplar #recibe un objeti ejemplar???
+		self.__ejemplar = ejemplar #recibe un objeto ejemplar???
 		self.__ejemplar.set_disponibilidad(False)
 
 	def get_tipo_prestamo(self):
@@ -35,7 +35,7 @@ class Prestamo():
 		return self.__fecha_prestamo.strftime('%d-%m-%Y')
 
 	def get_fecha_devuelta(self):
-		"""Metodo que devuelve la fecha de regreso del libro, 
+		"""Metodo que devuelve la fecha de regreso del libro,
 		calculada con base en la fecha de prestamo y el tipo de prestamo."""
 		return self.__fecha_devuelta.strftime('%d-%m-%Y')
 
