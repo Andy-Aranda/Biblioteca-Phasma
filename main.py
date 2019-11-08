@@ -1,31 +1,28 @@
-import ejemplar as e
-import prestamo as p
 import sistema_biblio as sb
-import usuario as u
-
-import submenus as submenu
+import submenus as sm
 
 def MenuPrincipal():
-    opcion = int(input("\n\tMenu Principal: \n1. Crear Usuario \n2. Agregar libro \n3. Solciitar Prestamo \nEscoja una opcion: "))
-    return opcion
+    opcion = int(input("\n\tBiblioteca Phasma\n\tMenu Principal: \n1. Crear Usuario \n2. Agregar libro \n3. Solciitar Prestamo \n4. Mostrar Catalogo \n5. Buscar por titulo \n6. Cargar Sistema \n7. Guardar Sistema\n8. Salir \nEscoja una opcion: "))
+    return opcion - 1
 
 def main():
     sistema = sb.SistemaBiblio()
     opcion = 0
-    a = submenu.crearUsuario
-    b = submenu.crearLibros
-    c = submenu.solicitarPrestamo
-    lista = [0, a, b, c]
-    while opcion < 6:
+    submenus = [sm.crearUsuario, sm.crearLibros, sm.solicitarPrestamo, sm.verCatalogo, sm.buscarEnCatalogo, sm.cargarAlSistema, sm.guardarSistema]
+
+    while opcion < 9:
+        print(sistema)
         opcion = MenuPrincipal()
         terminar = False
-        if opcion != 6:
+        if opcion < 7:
             while terminar == False:
-                terminar = lista[opcion](sistema)
-        #if opcion == 2:
-            #while terminar == False:
-                #terminar = submenu.crearUsuario(sistema)
+                terminar = submenus[opcion](sistema)
+
+        elif opcion == 7 or opcion == 8:
+            sistema = submenus[opcion](sistema)
+
         else:
-            opcion = 6
+            opcion = 9
+            print("Hasta luego :)")
 
 main()

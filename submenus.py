@@ -3,6 +3,9 @@ import prestamo as p
 import sistema_biblio as sb
 import usuario as u
 
+import os.path as path
+from pickle import dump, load
+
 def crearLibros(sistema):
     print("\tAgregar libros al catálogo: ")
     aumentar = True
@@ -41,12 +44,18 @@ def crearUsuario(sistema):
 
 def verCatalogo(sistema):
     print("\tEl Catalogo se muestra a continuación: ")
-    print(sistema.buscar_en_catalogo())
+    print(sistema.buscar_en_catalogo(""))
+    return True
 
 def buscarEnCatalogo(sistema):
     titulo = input("Ingrese el titulo que desea buscar: ")
-    print("\tSu busqueda coincide con: ")
-    print(sistema.buscar_en_catalogo(titulo))
+    x = sistema.buscar_en_catalogo(titulo)
+    if x == "":
+        print("\tSu busqueda no coincide con nada.")
+    else:
+        print("\tSu busqueda coincide con: ")
+        print(x)
+    return True
 
 def solicitarPrestamo(sistema):
     id_usuario = int(input("Ingrese su id de usuario: "))
@@ -59,7 +68,10 @@ def solicitarPrestamo(sistema):
         id_libro = float(input("Ingrese el id del libro que desea solicitar: "))
         ejemplar = obtenerEjemplarPorID(sistema, id_libro)
 
-        if ejemplar.get_disponibilidad():
+        if ejemplar == "":
+            print("El ejemplar con id {} no existe.".format(id_libro))
+
+        elif ejemplar.get_disponibilidad():
             tipo_prestamo = escogerTipoPrestamo()
             prestamo = p.Prestamo(tipo_prestamo, user, ejemplar)
             sistema.agregar_prestamo(prestamo)
@@ -90,3 +102,23 @@ def obtenerUsuarioPorID(sistema, id_usuario):
 def escogerTipoPrestamo():
     tipo_prestamo = int(input("Tipo de prestamo: \n 1. Prestamo Regular: dos semanas\n 2. Prestamo Rapido: dos dias\nEscoja el numero del tipo de prestamo que desea: "))
     return tipo_prestamo
+
+
+def cargarAlSistema(sistema):
+    nombre_archivo = input("\nIngrese el nombre del archivo que desea cargar: ")
+    if path.exists(nombre_archivo):
+        f = open(nombre_archivo, "rb")
+        sistema = load(f)
+        f.close()
+        print(sistema)
+        print("Se ha cargado exitosamente.")
+    else:
+        print("El archivo {} no existe.".format(nombre_archivo))
+    return sistema
+
+def guardarSistema(sistema):
+    nombre_archivo = input("\nIngrese el nombre del archivo donde desea guardar: ")
+    f = open(nombre_archivo, "wb")
+    dump(sistema, f)
+    f.close()
+    return sistema

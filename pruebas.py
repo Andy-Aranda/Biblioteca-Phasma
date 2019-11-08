@@ -1,24 +1,29 @@
 import ejemplar as e
+import prestamo as p
+import sistema_biblio as sb
+import usuario as u
+import submenus as sm
 
-x = 2
+from pickle import dump, load
+import os.path as path
 
-while x != 1:
-    titulo = input("Ingrese Titulo: ")
-    autor = input("Ingrese autor: ")
-    editorial = input("Ingrese editorial: ")
-    year = input("Ingrese año: ")
+sistema = sb.SistemaBiblio()
 
-    ejemplares = int(input("Ingrese numero de ejemplares: "))
-    aumentar = True
-    reiniciar = True
-    miLibro = e.Ejemplar(titulo, autor, editorial, year, aumentar, reiniciar)
-    print(miLibro)
-    ejemplares = ejemplares - 1
-    if ejemplares >= 1: #si hay más ejemplares entonces
-        aumentar = False #Contador de Libro
-        reiniciar = False #Contador de Ejemplar
-        while ejemplares > 0: #crear el resto de los ejemplares
-            miLibro = e.Ejemplar(titulo, autor, editorial, year, aumentar, reiniciar)
-            print(miLibro)
-            ejemplares = ejemplares - 1
-    x = input("ponga 1 para salir")
+libro = e.Ejemplar("titulo3", "autor", "editorial", "year", True, 2,  True)
+sistema.add_Libros(libro)
+libro = e.Ejemplar("titulo3", "autor", "editorial", "year", False, 2,  False)
+sistema.add_Libros(libro)
+libro = e.Ejemplar("titulo4", "autor4", "editorial4", "year4", True, 1,  True)
+sistema.add_Libros(libro)
+
+user = u.Usuario("Tan")
+sistema.add_Usuario(user)
+
+print(sistema.buscar_en_catalogo("titulo"))
+
+sistema = sm.cargarAlSistema(sistema)
+
+libro = e.Ejemplar("titulo4", "autor4", "editorial4", "year4", True, 1,  True)
+sistema.add_Libros(libro)
+
+print(sistema.buscar_en_catalogo("titulo"))

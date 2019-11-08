@@ -1,6 +1,8 @@
 #import ejemplar as ejem
 #import usuario as user
 #import prestamo as prest
+from pickle import dump, load
+import os.path as path
 
 class SistemaBiblio():
 	def __init__(self):
@@ -36,13 +38,6 @@ class SistemaBiblio():
 					#prestamos_user.append(prestamos)
 			#return prestamos_user
 
-	def get_ejemplares_disponibles(self, titulo):
-		lista = []
-		for libros in self.__catalogo:
-			if libros.get_titulo() == titulo and libros.get_disponibilidad():
-				lista.append(libros)
-		return lista
-
 	def get_catalogo(self):
 		return self.__catalogo
 
@@ -52,7 +47,14 @@ class SistemaBiblio():
 	def get_prestamos(self):
 		return self.__prestamos
 
-	def buscar_en_catalogo(self, titulo):
+	def get_ejemplares_disponibles(self, titulo):
+		lista = []
+		for libros in self.__catalogo:
+			if libros.get_titulo() == titulo and libros.get_disponibilidad():
+				lista.append(libros)
+		return lista
+
+	def buscar_en_catalogo(self, titulo=""):
 		texto = ""
 		nombre = ""
 		if titulo == "":
