@@ -2,10 +2,12 @@ from enum import Enum
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
-"""Clase Prestamo, crea objetos de tipo Prestamo cuyos atributos
-son el tipo de prestamo (se elige mediante enumeración), la fecha de 
+"""
+Clase Prestamo, crea objetos de tipo Prestamo cuyos atributos
+son el tipo de prestamo (se elige mediante enumeracion), la fecha de 
 prestamo, el usuario a quien se le presta, el numero de ejemplar que
-se presta."""
+se presta.
+"""
 class TipoPrestamo(Enum):
 	prestamo_regular = 1 # dos semanas
 	prestamo_rapido = 2 # dos dias
