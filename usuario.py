@@ -1,6 +1,6 @@
 """Clase Usuario, crea objetos de tipo Usuario
 que tiene como atributos un nombre, un id unico, 
-la cantidad de libros en prEstamo y ademas lleva la cuenta
+la cantidad de libros en prestamo y ademas lleva la cuenta
 que tiene como atributos un nombre, un id unico,
 la cantidad de libros en prestamo y ademas lleva la cuenta
 de cuantos usuarios hay registrados hasta el momento."""
@@ -34,8 +34,7 @@ class Usuario():
 
 		"""Metodo que suma un uno a la cantidad de libros
 		en prestamo del usuario cada que al 
-		Metodo que aniade un 1 a la cantidad de libros
-		en prestamo del usuario cada que al usuario se le presta un libro"""
+		usuario se le presta un libro"""
 
 		self.__libros_en_prestamo += 1
 		return self.__libros_en_prestamo
