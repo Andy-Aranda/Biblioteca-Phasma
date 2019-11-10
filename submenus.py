@@ -60,7 +60,7 @@ def verCatalogo(sistema):
     return True
 
 def miniMenuShowEjemplares(lista):
-    opcion = int(input(" \n1. Mostar ejemplares dispobles \n2. Regresar al Menu Principal \nEscoja una opcion: "))
+    opcion = int(input("Escoja una opcion: \n1. Mostar ejemplares disponbles \n2. Regresar al Menu Principal \nEscoja una opcion: "))
     if opcion == 1:
         n = int(input("Ingrese el numero de los ejemplares que desea ver: "))
         ejemplares = lista[n-1][1]
