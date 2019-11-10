@@ -16,11 +16,11 @@ class Prestamo():
 	def __init__(self, tipo_prestamo, usuario, ejemplar):
 		self.__tipo_prestamo = TipoPrestamo(tipo_prestamo).name
 		self.__fecha_prestamo = date.today()
-		if TipoPrestamo(tipo_prestamo) == 1: #por que se sumo aqui
+		if TipoPrestamo(tipo_prestamo) == 1: 
 			self.__fecha_devuelta = self.__fecha_prestamo + timedelta(weeks=2)
 		else:
 			self.__fecha_devuelta = self.__fecha_prestamo + timedelta(days=2)
-		self.__usuario = usuario #recibe un objeto usuario??
+		self.__usuario = usuario 
 		self.__usuario.add_libros_en_prestamo()
 
 		self.__ejemplar = ejemplar #recibe un objeto ejemplar???
