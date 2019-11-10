@@ -4,8 +4,8 @@
 from pickle import dump, load
 import os.path as path
 """Clase sistema biblioteca, tiene como atributos tres listas:
-en self.__catalogo guarda los objetos de tipo libro, en self.__usuario 
-los objetos de tipo usuario que se creen y en self.__prestamo 
+en self.__catalogo guarda los objetos de tipo libro, en self.__usuario
+los objetos de tipo usuario que se creen y en self.__prestamo
 los objetos de tipo prestamo."""
 
 class SistemaBiblio():
@@ -16,7 +16,7 @@ class SistemaBiblio():
 
 
 	def add_Libros(self, libro):
-		"""Metodo que agrega objetos de tipo libro 
+		"""Metodo que agrega objetos de tipo libro
 		a self.__catalogo"""
 		self.__catalogo.append(libro)
 		return True
@@ -33,9 +33,9 @@ class SistemaBiblio():
 		self.__prestamos.append(prestamo)
 		return True
 
-	def del_libro(self, prestamo):
+	def del_prestamo(self, prestamo):
 		"""Metodo que elimina un objeto de tipo
-		libro del catalogo. Ademas regresa un valor
+		prestamo del catalogo. Ademas regresa un valor
 		True si hubo multa, de lo contrario regresa un False"""
 		self.__prestamos.remove(prestamo)
 		multa = prestamo.terminar_prestamo()
@@ -62,32 +62,3 @@ class SistemaBiblio():
 	def get_prestamos(self):
 		"""Metodo que regresa la lista de prestamos."""
 		return self.__prestamos
-
-	def get_ejemplares_disponibles(self, titulo):
-		"""Metodo que regresa los ejemplares disponibles. Compara 
-		el titulo de los libros en el catalogo con el titulo introducido por el 
-		usuario y si esta disponible lo agrega a la lista que mostrara las
-		coincidencias al usuario."""
-		
-		lista = []
-		for libros in self.__catalogo:
-			if libros.get_titulo() == titulo and libros.get_disponibilidad():
-				lista.append(libros)
-		return lista
-
-	def buscar_en_catalogo(self, titulo):
-		"""?????"""
-		texto = ""
-		nombre = ""
-		if titulo == "":
-			for libros in self.__catalogo:
-				if libros.get_titulo() != nombre:
-					texto = texto + "\n{} ({}/{})".format( str(libros), (len(self.get_ejemplares_disponibles(libros.get_titulo()))), libros.get_total())
-					nombre = libros.get_titulo()
-		else:
-			for libros in self.__catalogo:
-				if libros.get_titulo() != nombre :
-					texto = texto + "\n{} ({}/{})".format( str(libros), (len(self.get_ejemplares_disponibles(libros.get_titulo()))), libros.get_total())
-					nombre = libros.get_titulo()
-
-		return texto

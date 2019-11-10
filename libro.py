@@ -8,7 +8,7 @@ class Libro():
             Libro.__totales = totales
         self.__total = Libro.__totales
         self.__id_libro = Libro.__cuenta # id unico!
-        self.__titulo = titulo
+        self.__titulo = titulo.title()
         self.__autor = autor
         self.__editorial = editorial
         self.__year = year

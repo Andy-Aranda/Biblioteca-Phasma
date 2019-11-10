@@ -36,9 +36,9 @@ def crearLibros(sistema):
             sistema.add_Libros(miLibro)
             #print(miLibro)
             ejemplares = ejemplares - 1
-        print("Se han agregado con exito los libros: \n{}".format( sistema.buscar_en_catalogo( miLibro.get_titulo() ) ) )
+        print("Se han agregado con exito los libros")
     else:
-        print("Se ha agregado con exito el libro: \n{}".format( sistema.buscar_en_catalogo( miLibro.get_titulo() ) ) )
+        print("Se ha agregado con exito el libro")
     return True
 
 def crearUsuario(sistema):
@@ -51,17 +51,34 @@ def crearUsuario(sistema):
 
 def verCatalogo(sistema):
     print("\tEl Catalogo se muestra a continuacion: ")
-    print(sistema.buscar_en_catalogo(""))
+    j = 0
+    lista = mostrar_de_catalogo("", sistema)
+    for i in lista:
+        j += 1
+        print( "{}. {}\n".format(j, i[0]) )
+    miniMenuShowEjemplares(lista)
     return True
+
+def miniMenuShowEjemplares(lista):
+    opcion = int(input(" \n1. Mostar ejemplares dispobles \n2. Regresar al Menu Principal \nEscoja una opcion: "))
+    if opcion == 1:
+        n = int(input("Ingrese el numero de los ejemplares que desea ver: "))
+        ejemplares = lista[n-1][1]
+        for n in ejemplares:
+            print(n)
 
 def buscarEnCatalogo(sistema):
     titulo = input("Ingrese el titulo que desea buscar: ")
-    x = sistema.buscar_en_catalogo(titulo)
-    if x == "":
+    lista = mostrar_de_catalogo(titulo, sistema)
+    if lista == []:
         print("\tSu busqueda no coincide con nada.")
     else:
+        j = 0
         print("\tSu busqueda coincide con: ")
-        print(x)
+        for i in lista:
+            j += 1
+            print( "{}. {}\n".format(j, i[0]) )
+    miniMenuShowEjemplares(lista)
     return True
 
 def solicitarPrestamo(sistema):
@@ -105,7 +122,6 @@ def obtenerUsuarioPorID(sistema, id_usuario):
             user = usuarios
     return user
 
-
 def escogerTipoPrestamo():
     error = True
     while error:
@@ -140,3 +156,29 @@ def guardarSistema(sistema):
     dump(sistema, f)
     f.close()
     return sistema
+
+def get_ejemplares_disponibles(titulo, sistema):
+    lista = []
+    for libros in sistema.get_catalogo():
+        if libros.get_titulo() == titulo and libros.get_disponibilidad():
+            lista.append(libros)
+    return lista
+
+def mostrar_de_catalogo(titulo, sistema):
+    libros = []
+    nombre = ""
+    titulo = titulo.title() #Formato de titulo a la entrada del usuario
+    if titulo == "":
+        for l in  sistema.get_catalogo():
+            if l.get_titulo() != nombre:
+                ejemplares = get_ejemplares_disponibles( l.get_titulo(), sistema )
+                libros.append( ["{} ({}/{})".format( str(l), (len(ejemplares) ), l.get_total()), ejemplares ] )
+                nombre = l.get_titulo()
+    else:
+        for l in sistema.get_catalogo():
+            if l.get_titulo() != nombre :
+                ejemplares = get_ejemplares_disponibles( l.get_titulo(), sistema )
+                libros.append( ["{} ({}/{})".format( str(l), (len(ejemplares) ), l.get_total()), ejemplares ] )
+                nombre = l.get_titulo()
+
+    return libros
