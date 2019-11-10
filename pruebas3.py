@@ -13,7 +13,10 @@ def main():
 	user3 = usuario.Usuario("Nadia Rodriguez")
 	user4 = usuario.Usuario("Ermit Nutriales")
 	
-	pres1 = pres.Prestamo(1, 
+	#pres1 = pres.Prestamo(1, user3, libro2)
+	
+	
+	
 	
 	libro1 = ejemplar.Ejemplar("Ensayo sobre la ceguera", "Jose Saramago", "Alfaguara", 2005, True, 1, True )
 	libro2 = ejemplar.Ejemplar("Ladrona de libros", "Markus Zusak", "Debolsillo", 2011, True, 3, True)

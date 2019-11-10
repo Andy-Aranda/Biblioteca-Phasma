@@ -6,7 +6,15 @@ import usuario as u
 import os.path as path
 from pickle import dump, load
 
+"""Define el funcionamiento de las ocpiones que se presentan al usuario en el main."""
+
 def crearLibros(sistema):
+    """Si el usuario desea agregar un libro, solicita los datos del mismo. Considera los errores que 
+    el usuario pudiera cometer al ingresarlo. Ademas considera el numero de ejemplares que el usuario quiera agregar,
+    si es mas de uno no aumenta el id de libro, pero si el de ejemplar, por lo que se crean varios ejemplares del mismo libro y
+    se agregan a la lista de libros. De lo contrario, se agrega el unico libro mencionado."""
+    
+    
     print("\tAgregar libros al catálogo: ")
     aumentar = True
     reiniciar = True
