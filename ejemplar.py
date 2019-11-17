@@ -21,4 +21,4 @@ class Ejemplar(Libro):
 		return self.__disponible
 
 	def __str__(self):
-		return "Titulo: {}, Autor: {}, Editorial: {}, Año: {}, id: {}.{}".format( self.get_titulo(), self.get_autor(), self.get_editorial(), self.get_year(), self.get_id_libro(), self.get_id())
+		return "Titulo: {}, Autor: {}, Editorial: {}, Año: {}, id: {}.{} Disponible: {}".format( self.get_titulo(), self.get_autor(), self.get_editorial(), self.get_year(), self.get_id_libro(), self.get_id(), self.get_disponibilidad())

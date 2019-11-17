@@ -1,5 +1,5 @@
 """Clase Usuario, crea objetos de tipo Usuario
-que tiene como atributos un nombre, un id unico, 
+que tiene como atributos un nombre, un id unico,
 la cantidad de libros en prestamo y ademas lleva la cuenta
 que tiene como atributos un nombre, un id unico,
 la cantidad de libros en prestamo y ademas lleva la cuenta
@@ -16,7 +16,6 @@ class Usuario():
 
 	def get_nombre(self):
 		"""Metodo que devuelve el nombre del usuario"""
-
 		return self.__nombre
 
 	def get_id(self):
@@ -33,19 +32,23 @@ class Usuario():
 	def add_libros_en_prestamo(self):
 
 		"""Metodo que suma un uno a la cantidad de libros
-		en prestamo del usuario cada que al 
+		en prestamo del usuario cada que al
 		usuario se le presta un libro"""
 
 		self.__libros_en_prestamo += 1
 		return self.__libros_en_prestamo
-	
-	def set_cuenta(n):
-		Usuario.__cuenta = n
-		return True	
 
-	def dec__libros_en_prestamo(self):
+	def set_cuenta(n):
+		"""Metodo que asigna el valor del atributo de clase cuenta."""
+		Usuario.__cuenta = n
+		return True
+
+	def dec_libros_en_prestamo(self):
 		"""Metodo que decrementa en uno la cantidad de libros
 		en prestamo cada que el usuario devuelve un libro"""
 
 		self.__libros_en_prestamo -= 1
 		return self.__libros_en_prestamo
+
+	def __str__(self):
+		return ("{}, ID:{} \nLibros en Prestamo:{} ").format(self.get_nombre(), self.get_id(), self.get_libros_en_prestamo())

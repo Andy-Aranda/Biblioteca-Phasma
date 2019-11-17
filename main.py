@@ -16,10 +16,10 @@ def main():
         except ValueError as excepcion:
             print("\n\t ERROR: Favor de seleccionar unicamente un numero")
         else:
-            if opcion < 5 and opcion != -1:
+            if opcion < 5 and opcion > -1:
                 while terminar == False:
                     terminar = submenus[opcion](biblio)
-            elif opcion == 5 or opcion == 6 and opcion != -1:
+            elif opcion == 5 or opcion == 6 and opcion > -1:
                 biblio = submenus[opcion](biblio)
             else:
                 print("Hasta luego :)")

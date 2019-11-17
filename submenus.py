@@ -31,8 +31,6 @@ def crearLibros(sistema):
             ejemplares = int(input("Ingrese numero de ejemplares: "))
         except ValueError as excepcion:
             print("\n\t Escriba un numero valido de ejemplares" )
-        except TypeError as excepcion:
-            print("\n\t Escriba un numero valido de ejemplares: ")
         else:
             error = False
     miLibro = e.Ejemplar(titulo, autor, editorial, year, aumentar, ejemplares, reiniciar)
@@ -111,7 +109,7 @@ def buscarEnCatalogo(sistema): #revisar, si busco un libro con titulo 5 y existe
         for i in lista:
             j += 1
             print( "{}. {}\n".format(j, i[0]) )
-    miniMenuShowEjemplares(lista)
+            miniMenuShowEjemplares(lista)
     return True
 
 def solicitarPrestamo(sistema):
@@ -223,8 +221,9 @@ def mostrar_de_catalogo(titulo, sistema):
     else:
         for l in sistema.get_catalogo():
             if l.get_titulo() != nombre :
-                ejemplares = get_ejemplares_disponibles( l.get_titulo(), sistema )
-                libros.append( ["{} ({}/{})".format( str(l), (len(ejemplares) ), l.get_total()), ejemplares ] )
+                if  l.get_titulo()  == titulo:
+                    ejemplares = get_ejemplares_disponibles( l.get_titulo(), sistema )
+                    libros.append( ["{} ({}/{})".format( str(l), (len(ejemplares) ), l.get_total()), ejemplares ] )
                 nombre = l.get_titulo()
 
 
