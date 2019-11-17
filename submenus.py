@@ -10,12 +10,12 @@ from pickle import dump, load
 """Define el funcionamiento de las ocpiones que se presentan al usuario en el main."""
 
 def crearLibros(sistema):
-    """Si el usuario desea agregar un libro, solicita los datos del mismo. Considera los errores que 
+    """Si el usuario desea agregar un libro, solicita los datos del mismo. Considera los errores que
     el usuario pudiera cometer al ingresarlo. Ademas considera el numero de ejemplares que el usuario quiera agregar,
     si es mas de uno no aumenta el id de libro, pero si el de ejemplar, por lo que se crean varios ejemplares del mismo libro y
     se agregan a la lista de libros. De lo contrario, se agrega el unico libro mencionado."""
-    
-    
+
+
     print("\tAgregar libros al catálogo: ")
     aumentar = True
     reiniciar = True
@@ -82,7 +82,7 @@ def miniMenuShowEjemplares(lista):
                 print("\n\t ERROR: Favor de seleccionar unicamente un numero de las opciones.\n")
             else:
                 error = False
-                
+
     if opcion == 1:
         error = True
         while error:
@@ -121,10 +121,10 @@ def solicitarPrestamo(sistema):
         try:
             id_usuario = int(input("Ingrese su id de usuario: "))
         except ValueError as excepcion:
-            print("\nERROR: Favor de ingresar un numero de ID.")   
+            print("\nERROR: Favor de ingresar un numero de ID.")
         else:
             error = False
-    
+
     user = obtenerUsuarioPorID(sistema, id_usuario)
 
     if user == "":
@@ -170,7 +170,7 @@ def escogerTipoPrestamo():
         try:
             tipo_prestamo = int(input("Tipo de prestamo: \n 1. Prestamo Regular: dos semanas\n 2. Prestamo Rapido: dos dias\nEscoja el numero del tipo de prestamo que desea: "))
         except ValueError as excepcion:
-            print("\n\t ERROR: Favor de seleccionar unicamente un numero de las opciones")
+            print("\n\t ERROR: Favor de seleccionar unicamente un numero de las opciones\n")
         else:
             if tipo_prestamo >= 3:
                 print("\n\t ERROR: Favor de seleccionar unicamente un numero de las opciones\n")
@@ -226,7 +226,7 @@ def mostrar_de_catalogo(titulo, sistema):
                 ejemplares = get_ejemplares_disponibles( l.get_titulo(), sistema )
                 libros.append( ["{} ({}/{})".format( str(l), (len(ejemplares) ), l.get_total()), ejemplares ] )
                 nombre = l.get_titulo()
-                
-    
+
+
 
     return libros

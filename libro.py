@@ -12,7 +12,6 @@ class Libro():
         self.__autor = autor
         self.__editorial = editorial
         self.__year = year
-        self.__prestados = 0
         #Libro.__cuenta = Libro.__cuenta + 1 #Aumenta cuando se crea un libro
 
 
@@ -34,10 +33,6 @@ class Libro():
     def get_total(self):
         return self.__total
 
-    def add_prestados(self):
-        self.__prestados += 1
-        return True
-    
     def set_cuenta(n):
         Libro.__cuenta = n
         return True
