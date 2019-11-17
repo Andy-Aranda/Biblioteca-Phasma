@@ -37,6 +37,10 @@ class Libro():
     def add_prestados(self):
         self.__prestados += 1
         return True
+    
+    def set_cuenta(n):
+        Libro.__cuenta = n
+        return True
 
     def __str__(self):
         return "Titulo: {}, Autor: {}, Editorial: {}, Año: {}, id: {}".format( self.get_titulo(), self.get_autor(), self.get_editorial(), self.get_year(), self.get_id() )

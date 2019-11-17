@@ -38,6 +38,10 @@ class Usuario():
 
 		self.__libros_en_prestamo += 1
 		return self.__libros_en_prestamo
+	
+	def set_cuenta(n):
+		Usuario.__cuenta = n
+		return True	
 
 	def dec__libros_en_prestamo(self):
 		"""Metodo que decrementa en uno la cantidad de libros

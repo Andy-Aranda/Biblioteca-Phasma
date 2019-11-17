@@ -2,6 +2,7 @@ import ejemplar as e
 import prestamo as p
 import sistema_biblio as sb
 import usuario as u
+from libro import Libro
 
 import os.path as path
 from pickle import dump, load
@@ -29,7 +30,9 @@ def crearLibros(sistema):
         try:
             ejemplares = int(input("Ingrese numero de ejemplares: "))
         except ValueError as excepcion:
-            print("\n\t Escriba un numero valido de ejemplares: " + excepcion)
+            print("\n\t Escriba un numero valido de ejemplares" )
+        except TypeError as excepcion:
+            print("\n\t Escriba un numero valido de ejemplares: ")
         else:
             error = False
     miLibro = e.Ejemplar(titulo, autor, editorial, year, aumentar, ejemplares, reiniciar)
@@ -50,7 +53,7 @@ def crearLibros(sistema):
     return True
 
 def crearUsuario(sistema):
-    print("\nAgregar un nuevo usuario: ")
+    print("\nAgregar un nuevo usuario. ")
     nombre = input("Ingrese su nombre: ")
     user = u.Usuario(nombre)
     sistema.add_Usuario(user)
@@ -68,18 +71,40 @@ def verCatalogo(sistema):
     return True
 
 def miniMenuShowEjemplares(lista):
-    opcion = int(input("Escoja una opcion: \n1. Mostar ejemplares disponbles \n2. Regresar al Menu Principal \nEscoja una opcion: "))
+    error = True
+    while error:
+        try:
+            opcion = int(input("Opciones: \n1. Mostar ejemplares disponibles \n2. Regresar al Menu Principal \nElija una opcion: "))
+        except ValueError as excepcion:
+            print("\n\t ERROR: Por favor, ingrese solo un numero de las opciones.\n")
+        else:
+            if opcion > 2:
+                print("\n\t ERROR: Favor de seleccionar unicamente un numero de las opciones.\n")
+            else:
+                error = False
+                
     if opcion == 1:
-        n = int(input("Ingrese el numero de los ejemplares que desea ver: "))
-        ejemplares = lista[n-1][1]
-        for n in ejemplares:
-            print(n)
+        error = True
+        while error:
+            try:
+                n = int(input("Ingrese el numero del libro del que desea ver los ejemplares: "))
+            except ValueError as excepcion:
+                print("\nERROR: Ingrese un numero de libro")
+            else:
+                error = False
+        try:
+            ejemplares = lista[n-1][1]
+        except IndexError as excepcion:
+            print("\nNo hay nada que mostrar")
+        else:
+            for n in ejemplares:
+                print(n)
 
-def buscarEnCatalogo(sistema):
+def buscarEnCatalogo(sistema): #revisar, si busco un libro con titulo 5 y existe uno con titulo 2 lo muestra como coincidencia
     titulo = input("Ingrese el titulo que desea buscar: ")
     lista = mostrar_de_catalogo(titulo, sistema)
     if lista == []:
-        print("\tSu busqueda no coincide con nada.")
+        print("\tSu busqueda no coincide con ningun titulo.")
     else:
         j = 0
         print("\tSu busqueda coincide con: ")
@@ -90,7 +115,16 @@ def buscarEnCatalogo(sistema):
     return True
 
 def solicitarPrestamo(sistema):
-    id_usuario = int(input("Ingrese su id de usuario: "))
+    #id_usuario = int(input("Ingrese su id de usuario: "))
+    error = True
+    while error:
+        try:
+            id_usuario = int(input("Ingrese su id de usuario: "))
+        except ValueError as excepcion:
+            print("\nERROR: Favor de ingresar un numero de ID.")   
+        else:
+            error = False
+    
     user = obtenerUsuarioPorID(sistema, id_usuario)
 
     if user == "":
@@ -109,7 +143,7 @@ def solicitarPrestamo(sistema):
             sistema.agregar_prestamo(prestamo)
             print("\nInformacion de su prestamo:\n" + str(prestamo))
         else:
-            print("Lo sentimos es ejemplar no está disponble")
+            print("Lo sentimos, ese ejemplar no esta disponble")
     else:
         print("Lo sentimos, ha excedido su maximo de prestamos.")
 
@@ -153,7 +187,11 @@ def cargarAlSistema(sistema):
         x = load(f)
         f.close()
         #print(sistema)
-        print("Se ha cargado exitosamente.")
+        print("El archivo " + nombre_archivo + " se ha cargado exitosamente.")
+        n = len(mostrar_de_catalogo("", x))
+        m = len(x.get_usuarios())
+        Libro.set_cuenta(n)
+        u.Usuario.set_cuenta(m)
     else:
         print("El archivo {} no existe.".format(nombre_archivo))
     return x
@@ -188,5 +226,7 @@ def mostrar_de_catalogo(titulo, sistema):
                 ejemplares = get_ejemplares_disponibles( l.get_titulo(), sistema )
                 libros.append( ["{} ({}/{})".format( str(l), (len(ejemplares) ), l.get_total()), ejemplares ] )
                 nombre = l.get_titulo()
+                
+    
 
     return libros
