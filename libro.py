@@ -1,4 +1,5 @@
 class Libro():
+    """Clase Libro"""
     __cuenta = 0
     __totales = 0
     def __init__(self, titulo, autor, editorial, year, aumentar, totales):

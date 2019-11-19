@@ -195,10 +195,14 @@ def cargarAlSistema(sistema):
     return x
 
 def guardarSistema(sistema):
-    nombre_archivo = input("\nIngrese el nombre del archivo donde desea guardar: ")
-    f = open(nombre_archivo, "wb")
-    dump(sistema, f)
-    f.close()
+    try:
+        nombre_archivo = input("\nIngrese el nombre del archivo donde desea guardar: ")
+        f = open(nombre_archivo, "wb")
+    except FileNotFoundError as excepcion:
+        print(" \nERROR: Ese nombre no es valido para guardar su archivo, introduzca otro.")
+    else:
+        dump(sistema, f)
+        f.close()
     return sistema
 
 def get_ejemplares_disponibles(titulo, sistema):
